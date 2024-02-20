@@ -6,7 +6,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 class BGSprite extends FlxSprite
 {
 	private var idleAnim:String;
-	public function new(image:String, x:Float = 0, y:Float = 0, ?scrollX:Float = 1, ?scrollY:Float = 1, ?animArray:Array<String> = null, ?loop:Bool = false) {
+	public function new(image:String, x:Float = 0, y:Float = 0, ?scrollX:Float = 1, ?scrollY:Float = 1, ?animArray:Array<String> = null, ?loop:Bool = false, ?path:String = '') {
 		super(x, y);
 
 		if (animArray != null) {
@@ -21,7 +21,7 @@ class BGSprite extends FlxSprite
 			}
 		} else {
 			if(image != null) {
-				loadGraphic(backend.utils.Paths.image(image));
+				loadGraphic(backend.utils.Paths.image(image,path));
 			}
 			active = false;
 		}
