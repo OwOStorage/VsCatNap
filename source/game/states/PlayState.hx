@@ -3999,7 +3999,7 @@ class PlayState extends MusicBeatState
 				if (storyPlaylist.length <= 0)
 				{
 					WeekData.loadTheFirstEnabledMod();
-					FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'));
 
 					cancelMusicFadeTween();
 					if(FlxTransitionableState.skipNextTransIn) {
@@ -4069,7 +4069,7 @@ class PlayState extends MusicBeatState
 					game.transitions.CustomFadeTransition.nextCamera = null;
 				}
 				MusicBeatState.switchState(new game.states.FreeplayState());
-				FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'));
 				changedDifficulty = false;
 			}
 			transitioning = true;
@@ -4630,6 +4630,10 @@ class PlayState extends MusicBeatState
 	{
 		if (backend.utils.Paths.formatToSongPath(SONG.song) != 'tutorial')
 			camZooming = true;
+
+		if(health > 0.1)
+			health -= 0.006;
+		
 
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
 			dad.playAnim('hey', true);

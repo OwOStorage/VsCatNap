@@ -678,7 +678,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 
 			if(FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new game.editors.MasterEditorMenu());
-				FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'), 1);
+				FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'), 1);
 				transitioning = true;
 			}
 

@@ -108,7 +108,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			else
 				MusicBeatState.switchState(new game.states.FreeplayState());
 
-			FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'));
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
 		}
 

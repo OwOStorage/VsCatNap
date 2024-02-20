@@ -454,7 +454,7 @@ class WeekEditorState extends MusicBeatState
 			FlxG.sound.volumeUpKeys = game.states.TitleState.volumeUpKeys;
 			if(FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new game.editors.MasterEditorMenu());
-				FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'));
 			}
 		}
 
@@ -817,7 +817,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 			FlxG.sound.volumeUpKeys = game.states.TitleState.volumeUpKeys;
 			if(FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new game.editors.MasterEditorMenu());
-				FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'));
 			}
 
 			if(controls.UI_UP_P) changeSelection(-1);

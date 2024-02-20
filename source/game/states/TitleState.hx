@@ -273,12 +273,12 @@ class TitleState extends MusicBeatState
 			// https://github.com/HaxeFlixel/flixel-addons/pull/348
 
 			// var music:FlxSound = new FlxSound();
-			// music.loadStream(backend.utils.Paths.music('freakyMenu'));
+			// music.loadStream(backend.utils.Paths.music('menu', 'deepsleep'));
 			// FlxG.sound.list.add(music);
 			// music.play();
 
 			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'), 0);
+				FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'), 0);
 			}
 		}
 
@@ -305,7 +305,7 @@ class TitleState extends MusicBeatState
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
-		// logoBl.screenCenter();
+		logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
 		swagShader = new ColorSwap();
@@ -345,7 +345,7 @@ class TitleState extends MusicBeatState
 		}
 		gfDance.antialiasing = backend.utils.ClientPrefs.globalAntialiasing;
 
-		add(gfDance);
+		//add(gfDance);
 		gfDance.shader = swagShader.shader;
 		add(logoBl);
 		logoBl.shader = swagShader.shader;
@@ -652,7 +652,7 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					//FlxG.sound.music.stop();
-					FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'), 0);
+					FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
 					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
@@ -737,7 +737,7 @@ class TitleState extends MusicBeatState
 						skippedIntro = true;
 						playJingle = false;
 
-						FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
 				}
@@ -759,7 +759,7 @@ class TitleState extends MusicBeatState
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
-						FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
 					};

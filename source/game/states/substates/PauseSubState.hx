@@ -274,7 +274,7 @@ class PauseSubState extends MusicBeatSubstate
 						MusicBeatState.switchState(new game.states.FreeplayState());
 					}
 					PlayState.cancelMusicFadeTween();
-					FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'));
 					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;
 			}

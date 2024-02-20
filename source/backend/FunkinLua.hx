@@ -1562,7 +1562,7 @@ class FunkinLua {
 			else
 				MusicBeatState.switchState(new game.states.FreeplayState());
 
-			FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'));
 			PlayState.changedDifficulty = false;
 			PlayState.chartingMode = false;
 			PlayState.instance.transitioning = true;

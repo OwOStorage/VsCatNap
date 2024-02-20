@@ -289,7 +289,7 @@ class MenuCharacterEditorState extends MusicBeatState
 			FlxG.sound.volumeUpKeys = game.states.TitleState.volumeUpKeys;
 			if(FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new game.editors.MasterEditorMenu());
-				FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'));
 			}
 
 			var shiftMult:Int = 1;

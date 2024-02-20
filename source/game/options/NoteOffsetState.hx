@@ -361,7 +361,7 @@ class NoteOffsetState extends MusicBeatState
 			persistentUpdate = false;
 			game.transitions.CustomFadeTransition.nextCamera = camOther;
 			MusicBeatState.switchState(new game.states.OptionsState());
-			FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'), 1, true);
+			FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'), 1, true);
 			FlxG.mouse.visible = false;
 		}
 

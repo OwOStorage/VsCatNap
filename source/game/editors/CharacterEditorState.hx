@@ -1126,7 +1126,7 @@ class CharacterEditorState extends MusicBeatState
 					MusicBeatState.switchState(new PlayState());
 				} else {
 					MusicBeatState.switchState(new game.editors.MasterEditorMenu());
-					FlxG.sound.playMusic(backend.utils.Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(backend.utils.Paths.music('menu', 'deepsleep'));
 				}
 				FlxG.mouse.visible = false;
 				return;
