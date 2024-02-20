@@ -104,12 +104,14 @@ import backend.system.MusicBeatState;
 		import vlc.MP4Handler;
 	#end
 #end
+import game.objects.shaders.VcrShader;
 
 using StringTools;
 
 class PlayState extends MusicBeatState
 {
 	var sexyUhmTxt:FlxTypedGroup<flixel.FlxSprite>;
+	var shaderorsmth:VcrShader;
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -587,27 +589,27 @@ class PlayState extends MusicBeatState
 				dadbattleSmokes = new FlxSpriteGroup(); // troll'd
 
 			case 'room':
-				var background:BGSprite = new BGSprite('roomback', -600, -540, 0.9, 0.9, null, false, "deepsleep");
+				var background:BGSprite = new BGSprite('song1/roomback', -600, -540, 0.9, 0.9, null, false, "deepsleep");
 				background.scale.set(0.8, 0.8);
 				background.updateHitbox();
 				add(background);
 
-				var front:BGSprite = new BGSprite('roomfront', -650, 400, 0.9, 0.9, null, false, "deepsleep");
+				var front:BGSprite = new BGSprite('song1/roomfront', -650, 400, 0.9, 0.9, null, false, "deepsleep");
 				front.scale.set(1.1, 1.1);
 				front.updateHitbox();
 				add(front);
 
-				var couch:BGSprite = new BGSprite('couch', 220, 68, 0.9, 0.9, null, false, "deepsleep");
+				var couch:BGSprite = new BGSprite('song1/couch', 220, 68, 0.9, 0.9, null, false, "deepsleep");
 				couch.scale.set(1.1, 1.1);
 				couch.updateHitbox();
 				add(couch);
 
-				var bearlmao:BGSprite = new BGSprite('redbear', 800, 88, 0.9, 0.9, null, false, "deepsleep");
+				var bearlmao:BGSprite = new BGSprite('song1/redbear', 800, 88, 0.9, 0.9, null, false, "deepsleep");
 				bearlmao.scale.set(1.3, 1.3);
 				bearlmao.updateHitbox();
 				add(bearlmao);
 
-				var bunnylmao:BGSprite = new BGSprite('greenbun', -100, 88, 0.9, 0.9, null, false, "deepsleep");
+				var bunnylmao:BGSprite = new BGSprite('song1/greenbun', -100, 88, 0.9, 0.9, null, false, "deepsleep");
 				bunnylmao.scale.set(1.3, 1.3);
 				bunnylmao.updateHitbox();
 				add(bunnylmao);
@@ -891,6 +893,17 @@ class PlayState extends MusicBeatState
 			prevCamFollowPos = null;
 		}
 		add(camFollowPos);
+		
+		
+
+		switch(curSong.toLowerCase()){
+			case 'soporific':
+				var vcr:VcrShader;
+				vcr = new VcrShader();
+				camGame.setFilters([new ShaderFilter(vcr)]);
+				
+				gf.visible = false;
+		}
 
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
@@ -922,7 +935,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.sprTracker = healthBar;
 
 		psyWatermark = new FlxText(40, healthBarBG.y + 37, 0, "", 16);
-		psyWatermark.setFormat(backend.utils.Paths.font("PhantomMuff.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		psyWatermark.setFormat(backend.utils.Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		psyWatermark.scrollFactor.set();
 		psyWatermark.y += 10;
 		psyWatermark.borderSize = 1.25;
@@ -930,7 +943,7 @@ class PlayState extends MusicBeatState
 		psyWatermark.visible = !backend.utils.ClientPrefs.hideFullHUD;
 
 		songLeft = new FlxText(1140, healthBarBG.y + 37, 0, "", 16);
-		songLeft.setFormat(backend.utils.Paths.font("PhantomMuff.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		songLeft.setFormat(backend.utils.Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		songLeft.scrollFactor.set();
 		songLeft.y += 10;
 		songLeft.alpha = 0;
@@ -998,7 +1011,7 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(backend.utils.Paths.font("PhantomMuff.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(backend.utils.Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.alpha = 0;
 		scoreTxt.borderSize = 1.25;
@@ -2160,7 +2173,7 @@ class PlayState extends MusicBeatState
 			+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 		}
 
-		psyWatermark.text = SONG.song + " • " + CoolUtil.difficulties[PlayState.storyDifficulty];
+		psyWatermark.text = SONG.song + " | " + CoolUtil.difficulties[PlayState.storyDifficulty];
 	
 		sickTxt.text = 'Sick: ${sicks}';
 		goodsTxt.text = 'Good: ${goods}';
@@ -2796,12 +2809,79 @@ class PlayState extends MusicBeatState
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
 
+	var camOffX = 0;
+	var camOffY = 0;
+	var cameraX:Float = 0;
+	var cameraY:Float = 0;
+	var intensity:Int = 40;
+
+	var dadPos:Array<Float> = [0,0];
+	var bfPos:Array<Float> = [0,0];
+	var gfPos:Array<Float> = [0,0];
+
 	override public function update(elapsed:Float)
 	{
 		/*if (FlxG.keys.justPressed.NINE)
 		{
 			iconP1.swapOldIcon();
 		}*/
+
+
+		dadPos[0] = dad.cameraPosition[0];
+		dadPos[1] = dad.cameraPosition[1];
+
+		bfPos[0] = boyfriend.cameraPosition[0];
+		bfPos[1] = boyfriend.cameraPosition[1];
+
+		gfPos[0] = gf.cameraPosition[0];
+		gfPos[1] = gf.cameraPosition[1];
+
+		cameraX = camFollow.x;
+		cameraY = camFollow.y;
+
+		var anim = dad.animation.curAnim.name;
+      	if (SONG.notes[curSection].mustHitSection && !SONG.notes[curSection].gfSection)
+         	anim = boyfriend.animation.curAnim.name;
+		if (SONG.notes[curSection].gfSection) 
+			anim = gf.animation.curAnim.name;
+
+		switch(anim){
+			case 'singLEFT':
+				camOffY = 0;
+				camOffX = 0 - intensity;
+			case 'singRIGHT':
+				camOffY = 0;
+         		camOffX = intensity;
+			case 'singUP':
+				camOffX = 0;
+				camOffY = 0 - intensity;
+			case 'singDOWN':
+				camOffX = 0;
+         		camOffY = intensity;
+			case 'idle':
+				camOffX = 0;
+				camOffX = 0;
+		}
+
+		
+		if(SONG.notes[curSection].mustHitSection && !SONG.notes[curSection].gfSection){
+			cameraX = boyfriend.x + (boyfriend.width / 2) - 100;
+			cameraY = boyfriend.y + (boyfriend.height / 2) - 100;
+			cameraX = cameraX - bfPos[0];
+			cameraY = cameraY + bfPos[1];
+			
+		} else if(!SONG.notes[curSection].mustHitSection && !SONG.notes[curSection].gfSection){
+			cameraX = dad.x + (dad.width / 2) + 150;
+			cameraY = dad.y + (dad.height / 2) - 100;
+			cameraX = cameraX + dadPos[0];
+			cameraY = cameraY + dadPos[1];
+		} else if(SONG.notes[curSection].gfSection){
+			camFollow.x = cameraX + camOffX;
+			camFollow.y = cameraY + camOffY;
+		}
+
+		camFollow.x = cameraX + camOffX;
+		camFollow.y = cameraY + camOffY;
 
 		if(cpuControlled){
 			backend.utils.ClientPrefs.botplayStudio = true;
@@ -3055,7 +3135,7 @@ class PlayState extends MusicBeatState
 					if(backend.utils.ClientPrefs.timeBarType != 'Song Name')
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 
-					songLeft.text = FlxStringUtil.formatTime(Math.max(0, Math.floor(curTime / 1000)), false) + " • " + FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
+					songLeft.text = FlxStringUtil.formatTime(Math.max(0, Math.floor(curTime / 1000)), false) + " | " + FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
 				}
 			}
 
