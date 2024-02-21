@@ -5304,6 +5304,7 @@
 		"arrowSkin": "",
 		"needsVoices": true,
 		"speed": 3.3,
+		"songColor": "0x5500ff",
 		"bpm": 120
 	}
 }

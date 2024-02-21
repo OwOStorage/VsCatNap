@@ -85,6 +85,9 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+			['maker of this oneshot'],
+			['BucketOfShrimp0', 'azazel', 'music, u name it idc.', 'https://gamebanana.com/members/2182636', "FF4A4265"],
+			[''],
 			['Astro Engine Team'],
 			['Hackx2',		'hackx2',		'Main Programmer of Astro Engine',								'https://twitter.com/AnimatesHack',	'444444'],
 			[''],

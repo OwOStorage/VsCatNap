@@ -3630,6 +3630,21 @@ class PlayState extends MusicBeatState
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
 				}
+			
+			case 'redflash':
+				var time:Float = Std.parseFloat(value1);
+				FlxG.camera.flash(FlxColor.RED, time);
+
+			case 'blackout':
+				var image:FlxSprite;
+				image = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+				image.alpha = 0;
+				image.cameras = [camOther];
+				image.screenCenter();
+				add(image);
+				//  if(value2 == 'wait'){
+				FlxTween.tween(image, {alpha:1}, 2.5, {ease:FlxEase.backIn});
+				// } 
 
 			case 'Trigger BG Ghouls':
 				if(curStage == 'schoolEvil' && !backend.utils.ClientPrefs.lowQuality) {
